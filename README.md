@@ -66,69 +66,6 @@ loop do
 end
 ```
 
-## Project Structure
-
-```
-luminous-locus/
-├── CMakeLists.txt              # Main CMake build file
-├── main.rb                     # Ruby game entry point
-├── lib/
-│   └── resurgence_engine/      # Main engine code
-│       ├── core/               # Core classes (Map, World, Object, etc.)
-│       │   ├── map.rb          # Map management
-│       │   ├── world.rb        # World container
-│       │   ├── object.rb       # Base object class
-│       │   ├── position.rb     # 3D position system
-│       │   ├── direction.rb    # Direction constants
-│       │   ├── id_ptr.rb       # Unique ID system
-│       │   ├── factory.rb      # Object factory
-│       │   ├── frame_data.rb   # Animation frames
-│       │   ├── los_calculator.rb # Line of sight
-│       │   ├── visible_levels.rb # Z-level visibility
-│       │   ├── core_human.rb   # Human-style core
-│       │   ├── direction_human.rb # Human-style direction
-│       │   ├── map_human.rb    # Human-style map
-│       │   ├── object_human.rb # Human-style object
-│       │   ├── types_human.rb  # Human-style types
-│       │   └── world_human.rb  # Human-style world
-│       ├── network/            # Networking
-│       │   ├── message.rb      # Network messages
-│       │   ├── network_interface.rb
-│       │   └── network_human.rb # Human-style network
-│       └── utils.rb            # Utility functions
-│       └── utils_human.rb      # Human-style utils
-├── exec/                       # Game assets
-│   ├── maps/                   # Map files (.json)
-│   │   ├── main.json
-│   │   └── cave.json
-│   ├── textures/               # Texture definitions
-│   │   └── textures.json
-│   ├── sounds/                 # Sound definitions
-│   │   └── sounds.json
-│   ├── scripts/                # Game scripts
-│   └── config/                 # Configuration files
-│       └── game.json
-├── gopath/src/griefly-server/  # C server
-│   ├── CMakeLists.txt          # C server build
-│   ├── server.c                # C server source
-│   └── server.h                # C server header
-├── cmake/Modules/              # CMake modules
-│   └── FindC.cmake             # C compiler finder
-├── tests/
-│   ├── unit/
-│   │   ├── test_core.rb        # Core class tests
-│   │   └── test_objects.rb     # Object class tests
-│   └── integration/
-├── tasks/                      # Rake tasks
-│   ├── dependencies.rake       # Dependency management
-│   ├── tests.rake              # Test runner
-│   ├── assets.rake             # Asset management
-│   └── docker.rake             # Docker tasks
-├── Rakefile                    # Build configuration
-├── Gemfile                     # Ruby dependencies
-└── README.md                   # This file
-```
-
 ## Commands
 
 ```bash

@@ -1,0 +1,1 @@
+﻿{ "game": { "name": "ResurgenceEngine", "version": "1.0.0", "fullscreen": false, "vsync": true, "fov": 75, "render_distance": 1000 }, "network": { "host": "0.0.0.0", "port": 1111, "max_players": 64, "tick_rate": 20 }, "physics": { "gravity": -9.81, "max_velocity": 100, "ground_friction": 0.9 }, "logging": { "level": "info", "file": "game.log" } }

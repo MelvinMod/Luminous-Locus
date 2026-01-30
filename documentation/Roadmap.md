@@ -1,4 +1,4 @@
-Griefly roadmap
+Luminous Locus roadmap
 ================
 ### Atmos
 1. Small atmos units (**done**)

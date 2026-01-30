@@ -1,5 +1,5 @@
-/*
- * ResurgenceEngine C Server
+/*y
+ * Luminous Locus C Server
  * Main entry point for C-based game server
  * 
  * Features:
@@ -234,7 +234,7 @@ void server_broadcast(void* data, size_t length) {
 
 /* Main server loop */
 void server_run(const char* listen_addr, int port) {
-    printf("Starting ResurgenceEngine C Server on %s:%d\n", listen_addr, port);
+    printf("Starting Luminous Locus C Server on %s:%d\n", listen_addr, port);
     
     g_server.listen_fd = create_server_socket(port);
     if (g_server.listen_fd < 0) {
@@ -340,7 +340,7 @@ int server_client_count(void) {
 
 /* Main entry point */
 int main(int argc, char* argv[]) {
-    printf("ResurgenceEngine C Server\n");
+    printf("Luminous Locus C Server\n");
     printf("========================\n\n");
     
     /* Parse arguments */

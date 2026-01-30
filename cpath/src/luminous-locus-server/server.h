@@ -1,13 +1,13 @@
 /*
- * ResurgenceEngine C Server Header
+ * Luminous Locus Server Header
  * Main server header file
  * 
  * Contains function declarations and
  * type definitions for the server
  */
 
-#ifndef RESURGENCE_SERVER_H
-#define RESURGENCE_SERVER_H
+#ifndef LUMINOUS_LOCUS_SERVER_H
+#define LUMINOUS_LOCUS_SERVER_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -18,7 +18,7 @@
 
 /* Version info */
 #define SERVER_VERSION "1.0.0"
-#define SERVER_NAME "ResurgenceEngine C Server"
+#define SERVER_NAME "Luminous Locus C Server"
 
 /* Error codes */
 #define ERR_OK 0
@@ -83,4 +83,4 @@ void handle_client_message(client_t* client, message_t* msg);
 void log_message(const char* format, ...);
 void format_uptime(uint64_t seconds, char* buffer, size_t size);
 
-#endif /* RESURGENCE_SERVER_H */
+#endif /* LUMINOUS_LOCUS_SERVER_H */

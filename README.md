@@ -7,6 +7,10 @@
 - **[MelvinSGjr (MelvinMod)](https://github.com/MelvinMod)** - Lead Developer
 - **[RikislavCheboksary](https://github.com/RikislavCheboksary)** - Game Helper
 
+## Launcher that will be available soon
+<img width="1290" height="858" alt="imagewewqe" src="https://github.com/user-attachments/assets/9cd1591b-e61a-4941-9527-ddcd31685726" />
+
+
 ## About
 
 Luminous Locus is a space station simulation game where players explore, build, and survive in a detailed 2D environment. The game features:

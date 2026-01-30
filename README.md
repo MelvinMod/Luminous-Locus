@@ -2,6 +2,23 @@
 
 **Luminous Locus** is a 2D space station remake game powered by **ResurgenceEngine**, a pure Ruby game engine with C server support for multiplayer.
 
+## Origin & History
+
+This project is an **original decompiled adaptation of Space Station 14** (SS14), completely rewritten and enhanced in different programming languages:
+
+- **Space Station 14** - Original C# project by Space-Wizards
+- **Luminous Locus** - Ruby + C adaptation with enhanced features
+
+### Language Architecture
+
+| Component | Language | Purpose |
+|-----------|----------|---------|
+| **Game Engine** | Ruby (ResurgenceEngine) | Core game logic, entity systems, physics, networking |
+| **Game Server** | C (luminous-locus-server) | High-performance multiplayer server, connection handling |
+| **Launcher** | Ruby | Game launcher and server browser |
+| **Build System** | Ruby (Rake) | Automated builds, testing, deployment |
+| **Configuration** | Ruby | Game settings, server configuration |
+
 ## Creators
 
 - **[MelvinSGjr (MelvinMod)](https://github.com/MelvinMod)** - Lead Developer
@@ -123,8 +140,10 @@ rake docker:push
 
 ## Requirements
 
-- Ruby 3.0.0 or higher
-- Bundler
+- **Ruby 3.0.0 or higher** (for game engine and build system)
+- **Bundler** (for dependency management)
+- **C Compiler** (gcc, clang, or MSYS2/MinGW for C server)
+- **CMake 3.10+** (optional, for advanced C builds)
 
 ## Dependencies
 
@@ -141,16 +160,17 @@ Install with: `bundle install`
 
 ## C Server
 
-The project includes a C-based game server (`gopath/src/griefly-server/`) that can be used for multiplayer support.
+The project includes a high-performance C-based game server (`cpath/src/luminous-locus-server/`) that provides multiplayer support.
 
 ### Build C Server
 
 ```bash
-cd gopath/src/griefly-server
-mkdir build
-cd build
-cmake ..
-cmake --build . --config Release
+# Using Rake (recommended)
+rake luminous_locus:build
+
+# Or build manually
+cd cpath/src/luminous-locus-server
+gcc main.c auth.c client.c client_conn.c json_db.c message.c model.c telemetry.c assetserver.c -o luminous-locus-server -Wall -Wextra -O2 -std=c11 -lws2_32 -lmswsock -liphlpapi
 ```
 
 ### C Server Features
@@ -165,11 +185,25 @@ cmake --build . --config Release
 
 ### C Server Command Line Options
 
+```bash
+# Basic usage
+./luminous-locus-server -port 8766
+
+# With asset server
+./luminous-locus-server -port 8766 -asset-port 8767
+
+# Auto-restart
+./luminous-locus-server -port 8766 -restart
+
+# Help
+./luminous-locus-server -help
 ```
---listen <addr>    Listen address (default: 0.0.0.0)
---port <port>      Port number (default: 1111)
---tick-interval <ms>  Tick interval in milliseconds (default: 100)
-```
+
+**Options:**
+- `-port <port>` - Server port (default: 8766)
+- `-asset-port <port>` - Asset server port (default: 8767)  
+- `-restart` - Enable auto-restart
+- `-help` - Show help message
 
 ## Game Assets (`exec/`)
 

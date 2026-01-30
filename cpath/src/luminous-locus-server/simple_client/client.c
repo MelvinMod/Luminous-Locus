@@ -7,13 +7,20 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <unistd.h>
-#include <netinet/in.h>
-#include <netinet/ip.h>
-#include <sys/select.h>
+
+#ifdef _WIN32
+    #include <winsock2.h>
+    #include <ws2tcpip.h>
+    #include <windows.h>
+    #define close closesocket
+    #define sleep Sleep
+#else
+    #include <sys/socket.h>
+    #include <netinet/in.h>
+    #include <arpa/inet.h>
+    #include <unistd.h>
+    #include <sys/select.h>
+#endif
 
 /* Configuration */
 #define DEFAULT_HOST "127.0.0.1"

@@ -7,11 +7,19 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <unistd.h>
+
+#ifdef _WIN32
+    #include <winsock2.h>
+    #include <ws2tcpip.h>
+    #include <windows.h>
+    #define close closesocket
+#else
+    #include <sys/types.h>
+    #include <sys/socket.h>
+    #include <netinet/in.h>
+    #include <arpa/inet.h>
+    #include <unistd.h>
+#endif
 #include "model.h"
 
 /* Asset server state */

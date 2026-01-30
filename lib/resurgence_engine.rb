@@ -26,12 +26,12 @@ module ResurgenceEngine
 
   # Autoload all engine components
   autoload :VERSION, 'resurgence_engine/version'
-  autoload :Core, 'resurgence_engine/core/core_human'
-  autoload :Object, 'resurgence_engine/core/object_human'
-  autoload :Map, 'resurgence_engine/core/map_human'
-  autoload :World, 'resurgence_engine/core/world_human'
+  autoload :Core, 'resurgence_engine/core/core'
+  autoload :Object, 'resurgence_engine/core/object'
+  autoload :Map, 'resurgence_engine/core/map'
+  autoload :World, 'resurgence_engine/core/world'
   autoload :Position, 'resurgence_engine/core/position'
-  autoload :Direction, 'resurgence_engine/core/direction_human'
+  autoload :Direction, 'resurgence_engine/core/direction'
   autoload :IdPtr, 'resurgence_engine/core/id_ptr'
   autoload :Factory, 'resurgence_engine/core/factory'
   autoload :FrameData, 'resurgence_engine/core/frame_data'
@@ -50,20 +50,36 @@ module ResurgenceEngine
   autoload :Mob, 'resurgence_engine/objects/mob'
 
   autoload :Message, 'resurgence_engine/network/message'
-  autoload :NetworkInterface, 'resurgence_engine/network/network_interface_human'
+  autoload :NetworkInterface, 'resurgence_engine/network/network_interface'
 end
 
+# Get the directory of this file
+LIB_DIR = File.expand_path('..', __FILE__)
+
 # Require core type definitions
-require 'resurgence_engine/core/types'
+require File.join(LIB_DIR, 'resurgence_engine/core/types')
 
 # Require core components
-require 'resurgence_engine/core/position'
-require 'resurgence_engine/core/direction_human'
-require 'resurgence_engine/core/id_ptr'
-require 'resurgence_engine/core/object_human'
-require 'resurgence_engine/core/factory'
-require 'resurgence_engine/core/frame_data'
-require 'resurgence_engine/core/los_calculator'
-require 'resurgence_engine/core/map_human'
-require 'resurgence_engine/core/world_human'
-require 'resurgence_engine/core/core_human'
+require File.join(LIB_DIR, 'resurgence_engine/core/position')
+require File.join(LIB_DIR, 'resurgence_engine/core/direction')
+require File.join(LIB_DIR, 'resurgence_engine/core/id_ptr')
+require File.join(LIB_DIR, 'resurgence_engine/core/object')
+require File.join(LIB_DIR, 'resurgence_engine/core/factory')
+require File.join(LIB_DIR, 'resurgence_engine/core/frame_data')
+require File.join(LIB_DIR, 'resurgence_engine/core/los_calculator')
+require File.join(LIB_DIR, 'resurgence_engine/core/map')
+require File.join(LIB_DIR, 'resurgence_engine/core/world')
+require File.join(LIB_DIR, 'resurgence_engine/core/core')
+
+# Initialize EMPTY_VIEW now that Direction is loaded
+ResurgenceEngine::Types::EMPTY_VIEW = ResurgenceEngine::Types::ViewInfo.new(
+  icon: '',
+  icon_state: '',
+  dir: ResurgenceEngine::Direction::SOUTH,
+  pixel_x: 0,
+  pixel_y: 0,
+  color: '#FFFFFF',
+  alpha: 255
+)
+
+ruby launcher.rb

@@ -44,24 +44,31 @@ module CServerBuild
     end
 
     def find_compiler
-      # Try common C compilers
+      # Try common C compilers, preferring MSYS2/MinGW
       compilers = %w[gcc clang cl tcc]
       compilers.each do |compiler|
         result = system("#{compiler} --version > /dev/null 2>&1")
         return compiler if result
       end
-      'gcc' # Default to gcc
+      # For MSYS2, try x86_64-w64-mingw32-gcc or i686-w64-mingw32-gcc
+      mingw_compilers = %w[x86_64-w64-mingw32-gcc i686-w64-mingw32-gcc]
+      mingw_compilers.each do |compiler|
+        result = system("#{compiler} --version > /dev/null 2>&1")
+        return compiler if result
+      end
+      'gcc' # Default fallback
     end
 
     def compile_flags
       flags = '-Wall -Wextra -O2 -std=c11'
+      # MSYS2/MinGW doesn't need pthread flag
       flags += ' -pthread' unless RbConfig::CONFIG['host_os'].include?('win')
       flags
     end
 
     def link_flags
       flags = ''
-      if RbConfig::CONFIG['host_os'].include?('win')
+      if RbConfig::CONFIG['host_os'].include?('win') || RbConfig::CONFIG['target_os'].include?('mingw')
         flags = '-lws2_32 -lmswsock -liphlpapi'
       else
         flags = '-lpthread'

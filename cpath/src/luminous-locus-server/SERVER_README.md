@@ -16,7 +16,7 @@ This is a C-based game server for the Luminous Locus game, originally ported fro
 ### Original Stack (Griefly)
 - **Language**: Go (Golang)
 - **Server**: Go-based game server
-- **Build System**: CMake
+- **Build System**: Go modules
 
 ### Current Stack (Luminous Locus)
 - **Language**: C (C11)

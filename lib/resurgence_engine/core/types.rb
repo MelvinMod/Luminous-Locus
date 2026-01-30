@@ -24,16 +24,8 @@ module ResurgenceEngine
     # View information for rendering
     ViewInfo = Data.define(:icon, :icon_state, :dir, :pixel_x, :pixel_y, :color, :alpha)
 
-    # Default empty view info
-    EMPTY_VIEW = ViewInfo.new(
-      icon: '',
-      icon_state: '',
-      dir: Direction::SOUTH,
-      pixel_x: 0,
-      pixel_y: 0,
-      color: '#FFFFFF',
-      alpha: 255
-    )
+    # Default empty view info - will be initialized after Direction is loaded
+    EMPTY_VIEW = nil
 
     # Type checking helpers
     def self.uint32?(value)

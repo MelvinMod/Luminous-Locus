@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Main Server",
+    "address": "localhost",
+    "max_players": 100,
+    "description": "Primary game server"
+  },
+  {
+    "name": "Local Test Server",
+    "address": "127.0.0.1",
+    "max_players": 50,
+    "description": "Local testing server"
+  },
+  {
+    "name": "Public Server 1",
+    "address": "server.luminouslocus.com",
+    "max_players": 100,
+    "description": "Public game server"
+  }
+]

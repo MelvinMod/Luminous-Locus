@@ -1,5 +1,6 @@
 @echo off
 REM Build.bat - Batch build script for Luminous Locus (Windows CMD)
+REM Uses Rake for building (Ruby-based build system)
 REM Usage: build.bat [command]
 
 setlocal EnableDelayedExpansion
@@ -18,17 +19,31 @@ set "NC=%ESC%[0m"
 
 set "COMMAND=%~1"
 
-REM Check for CMake
-where cmake >nul 2>&1
+REM Check for Ruby
+where ruby >nul 2>&1
 if errorlevel 1 (
-    echo %RED%[ERROR]%NC% CMake is not installed. Please install CMake 3.16+
+    echo %RED%[ERROR]%NC% Ruby is not installed. Please install Ruby 3.0+
     exit /b 1
 )
 
-REM Check CMake version (simplified check)
-cmake --version >nul 2>&1
+REM Check Ruby version
+ruby --version >nul 2>&1
 if errorlevel 1 (
-    echo %RED%[ERROR]%NC% CMake version check failed
+    echo %RED%[ERROR]%NC% Ruby version check failed
+    exit /b 1
+)
+
+REM Check for Bundler
+where bundle >nul 2>&1
+if errorlevel 1 (
+    echo %RED%[ERROR]%NC% Bundler is not installed. Run 'gem install bundler'
+    exit /b 1
+)
+
+REM Check for Rake
+where rake >nul 2>&1
+if errorlevel 1 (
+    echo %RED%[ERROR]%NC% Rake is not installed. Run 'gem install rake'
     exit /b 1
 )
 
@@ -38,18 +53,17 @@ if not exist "%BUILD_DIR%" (
     mkdir "%BUILD_DIR%" >nul 2>&1
 )
 
-REM Configure
-echo %GREEN%[BUILD]%NC% Configuring project with CMake...
-cd "%BUILD_DIR%"
-cmake .. -DCMAKE_BUILD_TYPE=Release -DBUILD_C_SERVER=ON
+REM Install dependencies
+echo %GREEN%[BUILD]%NC% Installing Ruby dependencies...
+bundle install
 
 if %ERRORLEVEL% neq 0 (
-    echo %RED%[ERROR]%NC% CMake configuration failed
+    echo %RED%[ERROR]%NC% Failed to install dependencies
     exit /b 1
 )
 
 echo.
-echo %GREEN%[BUILD]%NC% Configuration complete!
+echo %GREEN%[BUILD]%NC% Ready to build!
 echo.
 echo Available commands:
 echo   build       - Build the project (Ruby + C server)
@@ -63,83 +77,88 @@ echo   console     - Start interactive console
 echo   clean       - Remove build directory
 echo   help        - Show this help
 echo   build-c     - Build C server only
+echo   build-ruby  - Build Ruby gem only
 echo.
 
 REM Execute command
 if "%COMMAND%"=="" (
-    echo %GREEN%[BUILD]%NC% Configuration complete. Run 'build.bat help' for available commands.
+    echo %GREEN%[BUILD]%NC% Ready. Run 'build.bat help' for available commands.
     exit /b 0
 )
 
 if "%COMMAND%"=="build" (
-    echo %GREEN%[BUILD]%NC% Building...
-    cmake --build . --config Release
+    echo %GREEN%[BUILD]%NC% Building everything...
+    rake luminous_locus:build
+    rake build
     exit /b 0
 )
 
 if "%COMMAND%"=="test" (
     echo %GREEN%[BUILD]%NC% Running tests...
-    cmake --build . --target test
+    rake test
     exit /b 0
 )
 
 if "%COMMAND%"=="lint" (
     echo %GREEN%[BUILD]%NC% Running linter...
-    cmake --build . --target lint
+    rake lint
     exit /b 0
 )
 
 if "%COMMAND%"=="install" (
     echo %GREEN%[BUILD]%NC% Installing dependencies...
-    cmake --build . --target install-deps
+    bundle install
     exit /b 0
 )
 
 if "%COMMAND%"=="update" (
     echo %GREEN%[BUILD]%NC% Updating dependencies...
-    cmake --build . --target update-deps
+    bundle update
     exit /b 0
 )
 
 if "%COMMAND%"=="server" (
     echo %GREEN%[BUILD]%NC% Starting server...
-    cmake --build . --target server
+    rake luminous_locus:run
     exit /b 0
 )
 
 if "%COMMAND%"=="client" (
     echo %GREEN%[BUILD]%NC% Starting client...
-    cmake --build . --target client
+    ruby main.rb client --host localhost --port 8766
     exit /b 0
 )
 
 if "%COMMAND%"=="console" (
     echo %GREEN%[BUILD]%NC% Starting console...
-    cmake --build . --target console
+    ruby main.rb console
     exit /b 0
 )
 
 if "%COMMAND%"=="clean" (
-    echo %GREEN%[BUILD]%NC% Cleaning build directory...
+    echo %GREEN%[BUILD]%NC% Cleaning build directories...
+    rake clean
     rmdir /s /q "%BUILD_DIR%" >nul 2>&1
-    echo %GREEN%[BUILD]%NC% Build directory cleaned.
+    rmdir /s /q "cpath\src\luminous-locus-server\build" >nul 2>&1
+    echo %GREEN%[BUILD]%NC% Build directories cleaned.
     exit /b 0
 )
 
 if "%COMMAND%"=="build-c" (
     echo %GREEN%[BUILD]%NC% Building C server only...
-    cd cpath\src\luminous-locus-server
-    if not exist build_c mkdir build_c
-    cd build_c
-    cmake .. -DCMAKE_BUILD_TYPE=Release
-    cmake --build .
-    cd ..\..\..\..
-    echo %GREEN%[BUILD]%NC% C server built successfully!
+    rake luminous_locus:build
+    exit /b 0
+)
+
+if "%COMMAND%"=="build-ruby" (
+    echo %GREEN%[BUILD]%NC% Building Ruby gem...
+    rake gem
     exit /b 0
 )
 
 if "%COMMAND%"=="help" (
     echo Luminous Locus Build Script (Windows CMD)
+    echo Uses Rake for building (Ruby-based build system)
     echo.
     echo Usage: build.bat [command]
     echo.
@@ -155,6 +174,7 @@ if "%COMMAND%"=="help" (
     echo   clean       - Remove build directory
     echo   help        - Show this help
     echo   build-c     - Build C server only
+    echo   build-ruby  - Build Ruby gem only
     exit /b 0
 )
 

@@ -138,16 +138,19 @@ namespace :luminous_locus do
     system("#{executable} -port #{port} -asset-port #{asset_port} #{restart}")
   end
 
-  desc 'Build C server with CMake'
-  task :cmake do
-    CServerBuild.ensure_build_dir
-
-    Dir.chdir(CServerBuild::BUILD_DIR) do
-      system('cmake .. -DCMAKE_BUILD_TYPE=Release')
-      system('cmake --build .')
+  desc 'Build C server with direct compilation'
+  task :direct do
+    puts 'Building C server with direct compilation...'
+    command = CServerBuild.build_command
+    puts "  Running: #{command}"
+    
+    result = system(command)
+    if result
+      puts "  ✓ Server built: #{CServerBuild::EXECUTABLE}"
+    else
+      puts '  ✗ Build failed'
+      exit 1
     end
-
-    puts "Server built: #{CServerBuild::EXECUTABLE}"
   end
 
   desc 'Show C server information'

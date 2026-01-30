@@ -16,7 +16,7 @@ This is a C-based game server for the Luminous Locus game, originally ported fro
 ### Original Stack (Griefly)
 - **Language**: Go (Golang)
 - **Server**: Go-based game server
-- **Build System**: CMake + Go modules
+- **Build System**: CMake
 
 ### Current Stack (Luminous Locus)
 - **Language**: C (C11)
@@ -29,21 +29,19 @@ This is a C-based game server for the Luminous Locus game, originally ported fro
 ### Prerequisites
 
 - C compiler (gcc or clang)
-- CMake 3.10+
 - Ruby 3.0+ (for Rake build system)
 
 ### Build with Rake
 
 ```bash
 # Build C server
-rake luminous-locus:build
+rake luminous_locus:build
 
-# Build with custom options
-cd cpath/src/luminous-locus-server
-mkdir -p build
-cd build
-cmake .. -DCMAKE_BUILD_TYPE=Release
-make
+# Run server
+rake luminous_locus:run
+
+# Clean build
+rake luminous_locus:clean
 ```
 
 ### Build Manually
@@ -51,15 +49,8 @@ make
 ```bash
 cd cpath/src/luminous-locus-server
 
-# Create build directory
-mkdir -p build
-cd build
-
-# Configure
-cmake .. -DCMAKE_BUILD_TYPE=Release
-
-# Build
-cmake --build .
+# Build with gcc
+gcc main.c auth.c client.c client_conn.c json_db.c message.c model.c telemetry.c assetserver.c -o luminous-locus-server -Wall -Wextra -O2 -std=c11 -pthread
 
 # Run
 ./luminous-locus-server -port 8766
@@ -135,8 +126,8 @@ luminous-locus-server/
 ├── telemetry.c/h       # Metrics
 ├── assetserver.c/h     # Asset serving
 ├── server.c/h          # Server core
-├── CMakeLists.txt      # Build configuration
 ├── Rakefile            # Ruby build tasks
+├── README.md           # This file
 └── db/
     └── auth.json       # User database
 ```
@@ -170,9 +161,8 @@ recv(sock, buffer, sizeof(buffer), 0);
 - Verify port is not blocked by firewall
 
 ### Build Failures
-- Ensure CMake 3.10+ is installed
 - Check C compiler: `gcc --version`
-- Verify all dependencies: `rake luminous-locus:check`
+- Verify all dependencies: `rake luminous_locus:check_compiler`
 
 ### Performance Issues
 - Monitor with telemetry: `rake luminous-locus:telemetry`

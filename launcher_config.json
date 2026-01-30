@@ -1,0 +1,9 @@
+{
+  "default_server": "localhost",
+  "auto_connect": true,
+  "launch_options": {
+    "fullscreen": false,
+    "graphics_quality": "high",
+    "sound_enabled": true
+  }
+}

@@ -128,7 +128,7 @@ if "%COMMAND%"=="clean" (
 
 if "%COMMAND%"=="build-c" (
     echo %GREEN%[BUILD]%NC% Building C server only...
-    cd gopath\src\griefly-server
+    cd cpath\src\luminous-locus-server
     if not exist build_c mkdir build_c
     cd build_c
     cmake .. -DCMAKE_BUILD_TYPE=Release

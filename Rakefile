@@ -15,6 +15,8 @@ module ResurgenceEngine
   BUILD_DIR = Pathname.new('build')
   LIB_DIR = Pathname.new('lib')
   SRC_DIR = Pathname.new('sources')
+  CPATH_SERVER_DIR = Pathname.new('cpath/src/luminous-locus-server')
+  CPATH_BUILD_DIR = CPATH_SERVER_DIR + 'build'
 
   # Game information
   GAME_NAME = 'Luminous Locus'
@@ -29,6 +31,7 @@ import 'tasks/dependencies.rake'
 import 'tasks/tests.rake'
 import 'tasks/assets.rake'
 import 'tasks/docker.rake'
+import 'tasks/c_server.rake'
 
 # Default task
 task default: %i[build test]

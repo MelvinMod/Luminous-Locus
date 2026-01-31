@@ -24,7 +24,7 @@ This project is an **original decompiled adaptation of Space Station 14** (SS14)
 - **[MelvinSGjr (MelvinMod)](https://github.com/MelvinMod)** - Lead Developer
 - **[RikislavCheboksary](https://github.com/RikislavCheboksary)** - Game Helper
 
-## Launcher V2 that will be available soon
+## Launcher V2 that will be available soon (maybe we never made this launcher)
 <img width="1290" height="858" alt="imagewewqe" src="https://github.com/user-attachments/assets/9cd1591b-e61a-4941-9527-ddcd31685726" />
 
 

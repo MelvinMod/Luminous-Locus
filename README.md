@@ -19,6 +19,9 @@ This project is an **original decompiled adaptation of Space Station 14** (SS14)
 | **Build System** | Ruby (Rake) | Automated builds, testing, deployment |
 | **Configuration** | Ruby | Game settings, server configuration |
 
+### WARNING
+If you find a bug or want an update/fix, don't wait for it (no one will did it); simply take our source code and remade for your needs.
+
 ## Creators
 
 - **[MelvinSGjr (MelvinMod)](https://github.com/MelvinMod)** - Lead Developer
